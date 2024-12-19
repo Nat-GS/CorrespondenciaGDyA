@@ -1,0 +1,52 @@
+.container {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 30px;
+  color: black;
+}
+
+.title {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
+
+.destinatarios {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  color: #fff;
+}
+.destinatarioName button{
+    background-color: #ffdb00;
+    border-radius: 50px;
+    padding: 10px 40px;
+    font-size: 20px;
+    color: #26355d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+    border: 0px;
+    cursor: pointer;
+}
+
+.card {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: #af47d2;
+  padding: 20px;
+  border-radius: 8px;
+  width: 270px;
+}
+
+.destinatarioName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profileImage {
+  border-radius: 50%;
+}

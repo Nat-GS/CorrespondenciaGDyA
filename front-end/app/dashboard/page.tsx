@@ -5,6 +5,7 @@ import MySideBar from "../components/MySideBar";
 import RegistroCorrespondencia from "../components/RegistroCorrespondencia";
 import Monitoreo from "../components/Monitoreo";
 import CorrespondenciaPorRevisar from "../components/CorrespondenciaPorRevisar";
+import MiCorrespondencia from "../components/MiCorrespondencia";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("registro");
@@ -16,7 +17,9 @@ export default function Dashboard() {
       case "monitoreo":
         return <Monitoreo />;
       case "correspondencia":
-          return <CorrespondenciaPorRevisar />;
+        return <CorrespondenciaPorRevisar />;
+      case "misEnvios":
+        return <MiCorrespondencia />;
       default:
         return <RegistroCorrespondencia />;
     }
