@@ -1,7 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./MiCorrespondencia.module.css";
-import Link from "next/link";
-import Image from "next/image";
+import LocalizarModal from "./Modal/LocalizarModal";
 
 interface Destinatario {
   nombre: string;
@@ -29,9 +28,40 @@ const destinatarios: Destinatario[] = [
     horaRecepcion: "12:00 PM",
     proveido: "Proveido 3",
   },
+  {
+    nombre: "Destinatario 3",
+    fechaRecepcion: "2023-10-03",
+    horaRecepcion: "12:00 PM",
+    proveido: "Proveido 3",
+  },
+  {
+    nombre: "Destinatario 3",
+    fechaRecepcion: "2023-10-03",
+    horaRecepcion: "12:00 PM",
+    proveido: "Proveido 3",
+  },
+  {
+    nombre: "Destinatario 3",
+    fechaRecepcion: "2023-10-03",
+    horaRecepcion: "12:00 PM",
+    proveido: "Proveido 3",
+  },
 ];
 
 export default function MiCorrespondencia() {
+  const [isLocalizarModalOpen, setIsLocalizarModalOpen] = useState(false);
+  const [selectedDestinatario, setSelectedDestinatario] = useState<Destinatario | null>(null);
+
+  const handleLocalizarClick = (destinatario: Destinatario) => {
+    setSelectedDestinatario(destinatario);
+    setIsLocalizarModalOpen(true);
+  };
+
+  const closeLocalizarModal = () => {
+    setIsLocalizarModalOpen(false);
+    setSelectedDestinatario(null);
+  };
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Mi Correspondencia</h1>
@@ -40,7 +70,7 @@ export default function MiCorrespondencia() {
           <div key={index} className={styles.card}>
             <h2>Documento {index + 1}</h2>
             <div className={styles.destinatarioName}>
-              <button>Localizar</button>
+              <button onClick={() => handleLocalizarClick(destinatario)}>Localizar</button>
             </div>
             <p>Fecha de Recepción: {destinatario.fechaRecepcion}</p>
             <p>Hora de Recepción: {destinatario.horaRecepcion}</p>
@@ -48,6 +78,9 @@ export default function MiCorrespondencia() {
           </div>
         ))}
       </div>
+      {isLocalizarModalOpen && selectedDestinatario && (
+        <LocalizarModal destinatario={selectedDestinatario} onClose={closeLocalizarModal} />
+      )}
     </div>
   );
 }

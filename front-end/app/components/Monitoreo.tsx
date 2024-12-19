@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styles from "./Monitoreo.module.css";
 import Image from "next/image";
-import Modal from "./ModalMonitoreo";
+import Modal from "./Modal/ModalMonitoreo";
 
 interface User {
   id: number;

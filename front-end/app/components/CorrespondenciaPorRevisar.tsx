@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './CorrespondenciaPorRevisar.module.css';
 import Image from 'next/image';
-import EditModal from './EditModal'; 
+import EditModal from './Modal/EditModal'; 
 
 interface Correspondencia {
   id: number;
