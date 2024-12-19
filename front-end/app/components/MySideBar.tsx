@@ -7,6 +7,18 @@ interface MySideBarProps {
   onSelect: (option: string) => void;
 }
 
+interface NavItem {
+  option: string;
+  iconSrc: string;
+  label: string;
+}
+
+const navItems: NavItem[] = [
+  { option: 'registro', iconSrc: '/assets/images/list.png', label: 'Registro de correspondencia' },
+  { option: 'monitoreo', iconSrc: '/assets/images/monitoreo.png', label: 'Monitoreo' },
+  { option: 'correspondencia', iconSrc: '/assets/images/info.png', label: 'Correspondencia Por Revisar' },
+];
+
 export default function MySideBar({ onSelect }: MySideBarProps) {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -20,18 +32,14 @@ export default function MySideBar({ onSelect }: MySideBarProps) {
         {isVisible ? '☰' : '☰'}
       </button>
       <ul className={styles.navList}>
-        <li className={styles.navItem} onClick={() => handleSelect('registro')}>
-          <div className={styles.iconWrapper}>
-            <img src="/assets/images/list.png" alt="Registro" className={styles.icon} />
-          </div>
-          {isVisible && <span>Registro de correspondencia</span>}
-        </li>
-        <li className={styles.navItem} onClick={() => handleSelect('monitoreo')}>
-          <div className={styles.iconWrapper}>
-            <img src="/assets/images/monitoreo.png" alt="Monitoreo" className={styles.icon} />
-          </div>
-          {isVisible && <span>Monitoreo</span>}
-        </li>
+        {navItems.map((item) => (
+          <li key={item.option} className={styles.navItem} onClick={() => handleSelect(item.option)}>
+            <div className={styles.iconWrapper}>
+              <img src={item.iconSrc} alt={item.label} className={styles.icon} />
+            </div>
+            {isVisible && <span>{item.label}</span>}
+          </li>
+        ))}
       </ul>
     </div>
   );

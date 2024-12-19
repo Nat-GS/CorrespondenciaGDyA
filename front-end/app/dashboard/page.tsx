@@ -4,6 +4,7 @@ import { useState } from "react";
 import MySideBar from "../components/MySideBar";
 import RegistroCorrespondencia from "../components/RegistroCorrespondencia";
 import Monitoreo from "../components/Monitoreo";
+import CorrespondenciaPorRevisar from "../components/CorrespondenciaPorRevisar";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("registro");
@@ -14,6 +15,8 @@ export default function Dashboard() {
         return <RegistroCorrespondencia />;
       case "monitoreo":
         return <Monitoreo />;
+      case "correspondencia":
+          return <CorrespondenciaPorRevisar />;
       default:
         return <RegistroCorrespondencia />;
     }

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Modal.module.css";
+import styles from "./ModalMonitoreo.module.css";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -24,7 +24,7 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
+const ModalMonitoreo: React.FC<ModalProps> = ({ user, onClose }) => {
   const destinatarios: Destinatario[] = [
     {
       nombre: "Destinatario 1",
@@ -94,4 +94,4 @@ const Modal: React.FC<ModalProps> = ({ user, onClose }) => {
   );
 };
 
-export default Modal;
+export default ModalMonitoreo;
