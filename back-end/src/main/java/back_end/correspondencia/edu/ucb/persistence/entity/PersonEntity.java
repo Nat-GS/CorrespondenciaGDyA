@@ -15,8 +15,8 @@ public class PersonEntity {
     private Long idPerson;
     @Column(name = "ci", nullable = false, length = 75)
     private String ci;
-    @Column (name = "name", nullable = false, length = 75)
-    private String name;
+    @Column (name = "name_", nullable = false, length = 75)
+    private String name_;
     @Column(name = "father_last_name", nullable = false, length = 75)
     private String fatherLastName;
     @Column(name = "mother_last_name", nullable = false, length = 75)
@@ -41,7 +41,7 @@ public class PersonEntity {
 
     @PrePersist
     protected void onCreate(){
-        name = this.name.trim();
+        name_ = this.name_.trim();
         fatherLastName = this.fatherLastName.trim();
         motherLastName = this.motherLastName.trim();
         description = this.description.trim();
@@ -69,11 +69,11 @@ public class PersonEntity {
     }
 
     public String getName() {
-        return name;
+        return name_;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.name_ = name;
     }
 
     public String getFatherLastName() {
