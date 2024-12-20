@@ -17,7 +17,8 @@ const navItems: NavItem[] = [
   { option: 'registro', iconSrc: '/assets/images/list.png', label: 'Registro de correspondencia' },
   { option: 'monitoreo', iconSrc: '/assets/images/monitoreo.png', label: 'Monitoreo' },
   { option: 'correspondencia', iconSrc: '/assets/images/info.png', label: 'Correspondencia Por Revisar' },
-  { option: 'misEnvios', iconSrc: '/assets/images/sendDocument.png', label: 'Mi Correspondencia' },
+  { option: 'misEnvios', iconSrc: '/assets/images/miCorrespondencia.png', label: 'Mi Correspondencia' },
+  { option: 'enviarDocumento', iconSrc: '/assets/images/enviarDocumento.png', label: 'Enviar Documento ' },
 ];
 
 export default function MySideBar({ onSelect }: MySideBarProps) {

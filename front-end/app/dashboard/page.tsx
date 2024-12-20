@@ -6,6 +6,7 @@ import RegistroCorrespondencia from "../components/RegistroCorrespondencia";
 import Monitoreo from "../components/Monitoreo";
 import CorrespondenciaPorRevisar from "../components/CorrespondenciaPorRevisar";
 import MiCorrespondencia from "../components/MiCorrespondencia";
+import EnviarDocumento from "../components/EnviarDocumentos";
 
 export default function Dashboard() {
   const [selectedOption, setSelectedOption] = useState("registro");
@@ -20,6 +21,8 @@ export default function Dashboard() {
         return <CorrespondenciaPorRevisar />;
       case "misEnvios":
         return <MiCorrespondencia />;
+      case "enviarDocumento":
+          return <EnviarDocumento />;
       default:
         return <RegistroCorrespondencia />;
     }
