@@ -56,7 +56,7 @@ export default function EnviarDocumentos() {
             {archivos.map((archivo, index) => (
               <div key={index} className={styles.uploadedFile}>
                 <Image
-                  src="/assets/images/uploaded.png"
+                  src="/assets/images/nube.gif"
                   alt="Uploaded"
                   width={50}
                   height={50}
