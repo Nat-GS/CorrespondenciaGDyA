@@ -1,6 +1,5 @@
 package back_end.correspondencia.edu.ucb.bl;
 
-import back_end.correspondencia.edu.ucb.api.UserApi;
 import back_end.correspondencia.edu.ucb.dto.SuccessfulResponse;
 import back_end.correspondencia.edu.ucb.dto.UnsuccessfulResponse;
 import back_end.correspondencia.edu.ucb.dto.request.UsersRequest;
@@ -13,10 +12,14 @@ import back_end.correspondencia.edu.ucb.persistence.entity.PersonEntity;
 import back_end.correspondencia.edu.ucb.persistence.entity.RolHasUserEntity;
 import back_end.correspondencia.edu.ucb.persistence.entity.RolesEntity;
 import back_end.correspondencia.edu.ucb.persistence.entity.UsersEntity;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -31,15 +34,17 @@ public class UsersBl {
     private final RolHasUserDao rolHasUserDao;
     private final PersonDao personDao;
     private final PasswordEncoder passwordEncoder;
+    private final JavaMailSender mailSender;
     private static final Logger LOG = LoggerFactory.getLogger(UsersBl.class);
 
     @Autowired
-    public UsersBl(UsersDao usersDao, RolesDao rolesDao, RolHasUserDao rolHasUserDao, PersonDao personDao, PasswordEncoder passwordEncoder) {
+    public UsersBl(UsersDao usersDao, RolesDao rolesDao, RolHasUserDao rolHasUserDao, PersonDao personDao, PasswordEncoder passwordEncoder, JavaMailSender mailSender) {
         this.usersDao = usersDao;
         this.rolesDao = rolesDao;
         this.rolHasUserDao = rolHasUserDao;
         this.personDao = personDao;
         this.passwordEncoder = passwordEncoder;
+        this.mailSender = mailSender;
     }
 
     // Obtener todos los usuarios
@@ -54,7 +59,6 @@ public class UsersBl {
 
     // Crear un nuevo usuario
     public UsersEntity createUser(UsersEntity user) {
-        // Lógica adicional como encriptar contraseña si es necesario
         return usersDao.save(user);
     }
 
@@ -105,6 +109,9 @@ public class UsersBl {
             rolHasUserEntity.setRolesIdRoles(role.get());
             rolHasUserDao.save(rolHasUserEntity);
 
+            // Enviar correo electrónico de bienvenida
+            sendRegistrationEmail(request.getEmail(), request.getName());
+
             // Respuesta de éxito
             UsersResponse response = new UsersResponse();
             response = response.usersEntityToResponse(usersEntity);
@@ -119,7 +126,6 @@ public class UsersBl {
         }
     }
 
-
     public String randomAlphaNumericString(int length) {
         int leftLimit = 48; // numeral '0'
         int rightLimit = 122; // letter 'z'
@@ -132,7 +138,30 @@ public class UsersBl {
                 .toString();
     }
 
+    // Función para enviar correos electrónicos
+    private void sendRegistrationEmail(String to, String name) throws MessagingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
+        String subject = "Bienvenido a Correspondencia UCB";
+        String body = "<html>" +
+                "<body>" +
+                "<h1>Bienvenido a Correspondencia UCB</h1>" +
+                "<p>Hola <b>" + name + "</b>,</p>" +
+                "<p>Tu cuenta se ha registrado exitosamente.</p>" +
+                "<p>Por favor, inicia sesión para comenzar a usar nuestra plataforma.</p>" +
+                "<br>" +
+                "<p>Atentamente,</p>" +
+                "<p><b>Equipo de Correspondencia UCB</b></p>" +
+                "</body>" +
+                "</html>";
+
+        helper.setTo(to);
+        helper.setSubject(subject);
+        helper.setText(body, true); // Indicamos que el texto es HTML
+
+        mailSender.send(message);
+    }
 
     // Actualizar un usuario existente
     public UsersEntity updateUser(Long id, UsersEntity updatedUser) {
