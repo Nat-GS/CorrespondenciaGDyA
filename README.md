@@ -16,7 +16,10 @@ BD: Postgresql
 8. Registro de documentos revisados
 
 ## Video muestra del sistema
-<img src="./documents/VideoCorrespondencia.webm">
+<video width="100%" controls>
+  <source src="./documents/VideoCorrespondencia.webm" type="video/webm">
+  Tu navegador no soporta el elemento de video.
+</video>
 
 ## Base de datos
 ### Diseño de base de datos
