@@ -16,7 +16,7 @@ BD: Postgresql
 8. Registro de documentos revisados
 
 ## Video muestra del sistema
-
+<img src="./documents/VideoCorrespondencia.webm">
 
 ## Base de datos
 ### Diseño de base de datos
