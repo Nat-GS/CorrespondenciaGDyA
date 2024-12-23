@@ -1,12 +1,26 @@
 "use client";
+
 import Link from "next/link";
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {
+  Dropdown,
+  DropdownTrigger,
+  DropdownMenu,
+  DropdownItem,
+} from "@nextui-org/dropdown";
+import { Button } from "@nextui-org/button";
 import styles from "./Navbar.module.css";
+import { useSession } from "../providers/SessionProvider";
 
 export default function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const userRole = "Secretaria";
+  const { token, userDetails, logout } = useSession();
+  const isLoggedIn = !!token; // Determina si el usuario está autenticado
+  const [isClient, setIsClient] = useState(false); // Renderizado solo en cliente
+
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   return (
     <nav className={styles.navbar}>
@@ -21,39 +35,47 @@ export default function Navbar() {
         </Link>
       </div>
       <ul className={styles.navbarNav}>
-        {isLoggedIn ? (
-          <>
-            <li className={styles.navItem}>
-              <button className={styles.btnNotification}>
-                <Image
-                  src="/assets/images/notification.png"
-                  alt="Notification"
-                  width={30}
-                  height={30}
-                  className={styles.profileImage}
-                />{" "}
-              </button>
-            </li>
-            <li className={styles.navItem}>
-              <Link href="/perfil">
-                <button className={styles.btnLogin}>
-                  <Image
-                    src="/assets/images/perfil.png"
-                    alt="Profile"
-                    width={30}
-                    height={30}
-                    className={styles.profileImage}
-                  />
-                  {userRole}
-                </button>
-              </Link>
-            </li>
-          </>
-        ) : (
+        {isClient && (
           <li className={styles.navItem}>
-            <Link href="/login">
-              <button className={styles.btnLogin}>Login</button>
-            </Link>
+            {isLoggedIn ? (
+              <Dropdown>
+                <DropdownTrigger>
+                  <Button className={styles.btnLogin}>
+                    <Image
+                      src="/assets/images/perfil.png"
+                      alt="Profile"
+                      width={30}
+                      height={30}
+                      className={styles.profileImage}
+                    />
+                    {userDetails?.name || "Usuario"}
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu className={styles.dropdownMenu}>
+                  <DropdownItem key="profile">
+                    <strong>Nombre:</strong> {userDetails?.name}
+                  </DropdownItem>
+                  <DropdownItem key="rol">
+                    <strong>Rol:</strong> {userDetails?.role || "No disponible"}
+                  </DropdownItem>
+                  <DropdownItem key="logout" className={styles.logoutItem}>
+                    <button
+                      onClick={() => {
+                        logout();
+                        window.location.href = "/login"; // Redirige al login
+                      }}
+                      className={styles.logoutButton}
+                    >
+                      Logout
+                    </button>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            ) : (
+              <Link href="/login">
+                <Button className={styles.btnLogin}>Login</Button>
+              </Link>
+            )}
           </li>
         )}
       </ul>
