@@ -9,14 +9,48 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "react": "19.0.0-rc-66855b96-20241106",
-    "react-dom": "19.0.0-rc-66855b96-20241106",
-    "next": "15.0.3"
+    "@nextui-org/button": "2.0.26",
+    "@nextui-org/calendar": "^2.0.4",
+    "@nextui-org/code": "2.0.24",
+    "@nextui-org/dropdown": "^2.3.7",
+    "@nextui-org/input": "2.1.16",
+    "@nextui-org/kbd": "2.0.25",
+    "@nextui-org/link": "2.0.26",
+    "@nextui-org/modal": "^2.0.29",
+    "@nextui-org/navbar": "2.0.27",
+    "@nextui-org/pagination": "^2.0.30",
+    "@nextui-org/react": "^2.3.6",
+    "@nextui-org/select": "^2.1.27",
+    "@nextui-org/snippet": "2.0.30",
+    "@nextui-org/switch": "^2.0.28",
+    "@nextui-org/system": "^2.1.2",
+    "@nextui-org/table": "^2.0.28",
+    "@nextui-org/tabs": "^2.0.29",
+    "@tanstack/react-query": "^5.28.8",
+    "@types/node": "20.5.7",
+    "@types/nodemailer": "^6.4.14",
+    "@types/react": "18.2.21",
+    "@types/react-dom": "18.2.7",
+    "cookie": "^0.6.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt-decode": "^4.0.0",
+    "next": "15.0.3",
+    "next-client-cookies": "^1.1.1",
+    "react": "^18.2.0",
+    "react-calendar": "^5.0.0",
+    "react-dom": "^18.2.0",
+    "react-google-recaptcha": "^3.1.0",
+    "react-hook-form": "^7.51.1",
+    "react-icons": "^5.0.1",
+    "react-minimal-pie-chart": "^8.4.0",
+    "react-player": "^2.15.1",
+    "react-spinners": "^0.13.8",
+    "react-toastify": "^10.0.5"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react-dom": "^18",
+    "typescript": "^5"
   }
 }

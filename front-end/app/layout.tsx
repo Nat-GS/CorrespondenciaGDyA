@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import Navbar from "./components/navbar";
+import { SessionProvider } from "./providers/SessionProvider";
+import ToastProvider from "./providers/ToastProvider";
+import { CookiesProvider } from "next-client-cookies/server";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,7 +30,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        {children}
+      <CookiesProvider>
+          <ToastProvider>
+            <SessionProvider>
+            <Navbar/>{children}</SessionProvider>
+          </ToastProvider>
+        </CookiesProvider>      
       </body>
     </html>
   );
