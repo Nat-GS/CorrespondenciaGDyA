@@ -1,4 +1,22 @@
 # CorrespondenciaGDyA
+## Especificaciones del sistema
+Este sistema fue desarrollado con:
+Frontend: NextJs utilizando node v18.18.0
+Backend: Spring-boot java
+BD: Postgresql
+
+## Funciones del sistema
+1. Inicio de sesión con manejo de JWT
+2. Manejo de token refresh (7 días)
+3. Registro de nuevos usuarios, con envio de correo electrónico
+4. Subida de documentos
+5. Registro de documentos enviados
+6. Monitoreo de documentos
+7. Observaciones de documentos
+8. Registro de documentos revisados
+
+## Video muestra del sistema
+
 
 ## Base de datos
 ### Diseño de base de datos
