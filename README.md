@@ -15,6 +15,17 @@ BD: Postgresql
 7. Observaciones de documentos
 8. Registro de documentos revisados
 
+## Imagenes del sistema
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-44-30.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-44-48.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-44-52.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-45-02.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-45-06.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-45-10.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-45-20.png"> 
+<img style="width:200px" src="./documents/Captura desde 2024-12-23 11-45-14.png"> 
+
+
 ## Video muestra del sistema
 <video width="100%" controls>
   <source src="./documents/VideoCorrespondencia.webm" type="video/webm">
