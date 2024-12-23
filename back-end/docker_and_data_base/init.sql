@@ -49,7 +49,7 @@ CREATE TABLE IF NOT EXISTS doc (
     description VARCHAR(255) NOT NULL,
     send_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    file_data BYTEA NOT NULL
+    file_data VARCHAR(255) NOT NULL
 );
 
 -- Table: doc_rev

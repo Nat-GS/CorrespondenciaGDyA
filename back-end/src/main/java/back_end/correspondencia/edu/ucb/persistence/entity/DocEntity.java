@@ -29,11 +29,12 @@ public class DocEntity {
     @Column(name = "status", nullable = false)
     private int status;
 
-    @Column(name = "file_data", nullable = false)
+   /* @Column(name = "file_data", nullable = false)
     @Lob
-    private byte[] fileData;
+    private byte[] fileData;*/
 
-
+    @Column(name = "file_data", length = 255, nullable = false)
+    private String fileData; // Cambiado a String para almacenar enlaces
 
     @PrePersist
     protected void onCreate() {
@@ -89,11 +90,11 @@ public class DocEntity {
         this.status = status;
     }
 
-    public byte[] getFileData() {
+    public String getFileData() {
         return fileData;
     }
 
-    public void setFileData(byte[] fileData) {
+    public void setFileData(String fileData) {
         this.fileData = fileData;
     }
 }

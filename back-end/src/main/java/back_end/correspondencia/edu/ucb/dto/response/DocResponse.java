@@ -8,10 +8,10 @@ public class DocResponse {
     private String description;
     private int status;
     private LocalDateTime sendDate;
-    private byte[] fileData;
+    private String fileData;
 
 
-    public DocResponse(Long idDoc, String title, String description, int status, LocalDateTime sendDate, byte[] fileData) {
+    public DocResponse(Long idDoc, String title, String description, int status, LocalDateTime sendDate, String fileData) {
         this.idDoc = idDoc;
         this.title = title;
         this.description = description;
@@ -60,11 +60,11 @@ public class DocResponse {
         this.sendDate = sendDate;
     }
 
-    public byte[] getFileData() {
+    public String getFileData() {
         return fileData;
     }
 
-    public void setFileData(byte[] fileData) {
+    public void setFileData(String fileData) {
         this.fileData = fileData;
     }
 }

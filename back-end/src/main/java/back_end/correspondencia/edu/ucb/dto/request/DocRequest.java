@@ -1,12 +1,19 @@
 package back_end.correspondencia.edu.ucb.dto.request;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class DocRequest {
+    private String fileLink;
     private String title;
     private String description;
     private Long rolHasUserId;
-    private MultipartFile file; // Archivo en formato MultipartFile
+
+    // Getters y Setters
+    public String getFileLink() {
+        return fileLink;
+    }
+
+    public void setFileLink(String fileLink) {
+        this.fileLink = fileLink;
+    }
 
     public String getTitle() {
         return title;
@@ -30,13 +37,5 @@ public class DocRequest {
 
     public void setRolHasUserId(Long rolHasUserId) {
         this.rolHasUserId = rolHasUserId;
-    }
-
-    public MultipartFile getFile() {
-        return file;
-    }
-
-    public void setFile(MultipartFile file) {
-        this.file = file;
     }
 }
