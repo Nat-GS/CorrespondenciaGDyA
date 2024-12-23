@@ -1,0 +1,85 @@
+.modalOverlay {
+  font-family: "Zen Old Mincho";
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 700px;
+  width: 100%;
+  height: auto;
+}
+
+.closeButton {
+  background: transparent;
+  color: black;
+  font-size: 27px;
+  border: none;
+  cursor: pointer;
+  margin: 0;
+}
+.downloadButton {
+  background-color: #ffdb00;
+  color: #26355d;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+.routeButton {
+  display: flex;
+  justify-content: flex-end;
+}
+.routeButton button {
+  background-color: #ffdb00;
+  color: #26355d;
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 30px;
+}
+
+.destinatarios {
+  margin-top: 20px;
+  display: flex;
+}
+
+.card {
+  background: #af47d2cc;
+  padding: 10px;
+  color: #fff;
+  border-radius: 10px;
+  margin: 10px;
+  font-size: 13px;
+}
+.card h2 {
+  display: flex;
+  justify-content: center;
+}
+.destinatarioName {
+  padding: 10px;
+  font-size: 20px;
+  color: #26355d;
+  background-color: #ffdb00;
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  margin: 20px 0px;
+  justify-content: center;
+  flex-direction: row;
+}
+.destinatarioName img {
+  background-color: transparent;
+}
