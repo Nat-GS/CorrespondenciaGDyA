@@ -26,8 +26,8 @@ public class UsersRequest {
     @NotBlank(message = "La confirmación de contraseña es obligatoria")
     private String confirmPassword;
 
-    @NotBlank(message = "El título del documento es obligatorio")
-    private String documentTitle;
+    @NotBlank(message = "La descripcion del usuario es obligatoria")
+    private String description;
 
     private String cellPhone;
 
@@ -87,12 +87,12 @@ public class UsersRequest {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getDocumentTitle() {
-        return documentTitle;
+    public String getDescription() {
+        return description;
     }
 
-    public void setDocumentTitle(String documentTitle) {
-        this.documentTitle = documentTitle;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getCellPhone() {

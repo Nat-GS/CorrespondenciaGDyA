@@ -76,7 +76,7 @@ public class UsersBl {
             personEntity.setMotherLastName(request.getMotherLastName());
             personEntity.setEmail(request.getEmail());
             personEntity.setCellPhone(request.getCellPhone());
-            personEntity.setDescription(request.getDocumentTitle());
+            personEntity.setDescription(request.getDescription());
             personEntity.setStatus(1);
             personDao.save(personEntity);
 
