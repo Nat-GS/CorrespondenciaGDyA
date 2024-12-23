@@ -27,9 +27,27 @@ public class PersonBl {
         return personDao.findById(id);
     }
 
-    // Crear una nueva persona
-    public PersonEntity createPerson(PersonEntity person) {
-        return personDao.save(person);
+    // Verificar si un CI ya existe
+    public boolean existsByCi(String ci) {
+        return personDao.existsByCi(ci);
+    }
+
+    // Crear o actualizar una persona (evitar duplicados)
+    public PersonEntity saveOrUpdatePerson(PersonEntity person) {
+        Optional<PersonEntity> existingPerson = personDao.findByCi(person.getCi());
+        if (existingPerson.isPresent()) {
+            // Actualizar el registro existente
+            PersonEntity updatePerson = existingPerson.get();
+            updatePerson.setName(person.getName());
+            updatePerson.setFatherLastName(person.getFatherLastName());
+            updatePerson.setMotherLastName(person.getMotherLastName());
+            updatePerson.setEmail(person.getEmail());
+            updatePerson.setCellPhone(person.getCellPhone());
+            return personDao.save(updatePerson);
+        } else {
+            // Guardar nuevo registro
+            return personDao.save(person);
+        }
     }
 
     // Actualizar una persona existente

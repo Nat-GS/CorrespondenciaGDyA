@@ -1,9 +1,11 @@
 package back_end.correspondencia.edu.ucb.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
@@ -30,11 +32,12 @@ public class UsersEntity {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "usersIdUsers", orphanRemoval = true, cascade = CascadeType.ALL)
-    List<RolHasUserEntity> roleHasUserEntityList;
+    private List<RolHasUserEntity> roleHasUserEntityList = new ArrayList<>();
+
 
     @PrePersist
     protected void onCreate() {
-        //status = 1;
+        status = 1;
         createdAt = LocalDateTime.now();
     }
 

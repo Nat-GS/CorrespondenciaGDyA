@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -12,7 +13,7 @@ import java.util.List;
 public class RolesEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_roles", nullable = false)
+    @Column(name = "id_rol", nullable = false)
     private Long idRole;
     @Column(name = "user_role", length = 75, nullable = false)
     private String userRole;
@@ -22,7 +23,7 @@ public class RolesEntity {
     private LocalDateTime createdAt;
 
     @OneToMany(mappedBy = "rolesIdRoles", cascade = CascadeType.ALL, orphanRemoval = true)
-    List<RolHasUserEntity> rolHasUsersEntityList;
+    private List<RolHasUserEntity> rolHasUsersEntityList = new ArrayList<>();
 
     @PrePersist
     protected void onCreate(){
@@ -48,20 +49,20 @@ public class RolesEntity {
         this.userRole = userRole;
     }
 
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int status) {
-        this.status = status;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public List<RolHasUserEntity> getRolHasUsersEntityList() {

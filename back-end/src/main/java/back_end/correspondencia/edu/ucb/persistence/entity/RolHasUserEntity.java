@@ -12,14 +12,15 @@ import java.util.List;
 public class RolHasUserEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_role_user", nullable = false)
+    @Column(name = "id_rol_user", nullable = false)
     private Long idRoleUser;
     @ManyToOne
     @JoinColumn(name = "users_id_users", referencedColumnName = "id_users")
     private UsersEntity usersIdUsers;
     @ManyToOne
-    @JoinColumn(name = "roles_id_roles", referencedColumnName = "id_roles")
+    @JoinColumn(name = "roles_id_rol", referencedColumnName = "id_rol")
     private RolesEntity rolesIdRoles;
+
     @Column(name = "status", nullable = false)
     private int status;
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -76,19 +77,19 @@ public class RolHasUserEntity {
         this.createdAt = createdAt;
     }
 
-    public List<DocRevEntity> getDocRevEntityList() {
-        return docRevEntityList;
-    }
-
-    public void setDocRevEntityList(List<DocRevEntity> docRevEntityList) {
-        this.docRevEntityList = docRevEntityList;
-    }
-
     public List<DocEntity> getDocEntityList() {
         return docEntityList;
     }
 
     public void setDocEntityList(List<DocEntity> docEntityList) {
         this.docEntityList = docEntityList;
+    }
+
+    public List<DocRevEntity> getDocRevEntityList() {
+        return docRevEntityList;
+    }
+
+    public void setDocRevEntityList(List<DocRevEntity> docRevEntityList) {
+        this.docRevEntityList = docRevEntityList;
     }
 }

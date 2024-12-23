@@ -1,12 +1,17 @@
 package back_end.correspondencia.edu.ucb.bl;
 
+import back_end.correspondencia.edu.ucb.dto.request.DocRevRequest;
+import back_end.correspondencia.edu.ucb.dto.response.DocRevResponse;
 import back_end.correspondencia.edu.ucb.persistence.dao.DocRevDao;
+import back_end.correspondencia.edu.ucb.persistence.entity.DocEntity;
 import back_end.correspondencia.edu.ucb.persistence.entity.DocRevEntity;
+import back_end.correspondencia.edu.ucb.persistence.entity.RolHasUserEntity;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class DocRevBl {
@@ -17,34 +22,48 @@ public class DocRevBl {
         this.docRevDao = docRevDao;
     }
 
-    // Obtener todas las revisiones de documentos
-    public List<DocRevEntity> getAllDocRevisions() {
-        return docRevDao.findAll();
+    @Transactional
+    public List<DocRevResponse> getRevisionsByDocId(Long docId) {
+        List<DocRevEntity> revisions = docRevDao.findByDocId(docId);
+        return revisions.stream().map(revision -> new DocRevResponse(
+                revision.getIdDocRev(),
+                revision.getRolHasUserIdRolUser().getIdRoleUser(),
+                revision.getDoc().getIdDoc(),
+                revision.getReference(),
+                revision.getOffice(),
+                revision.getReceiver(),
+                revision.getCreatedAt()
+        )).collect(Collectors.toList());
     }
 
-    // Obtener una revisión de documento por ID
-    public Optional<DocRevEntity> getDocRevisionById(Long id) {
-        return docRevDao.findById(id);
-    }
+    @Transactional
+    public DocRevResponse addRevision(DocRevRequest request) {
+        // Crear y guardar la revisión
+        DocRevEntity newRevision = new DocRevEntity();
 
-    // Crear una nueva revisión de documento
-    public DocRevEntity createDocRevision(DocRevEntity docRev) {
-        return docRevDao.save(docRev);
-    }
+        // Configurar las entidades relacionadas correctamente
+        RolHasUserEntity rolHasUser = new RolHasUserEntity();
+        rolHasUser.setIdRoleUser(request.getRolHasUserId());
 
-    // Actualizar una revisión de documento existente
-    public DocRevEntity updateDocRevision(Long id, DocRevEntity updatedDocRev) {
-        return docRevDao.findById(id).map(docRev -> {
-            docRev.setReference(updatedDocRev.getReference());
-            docRev.setOffice(updatedDocRev.getOffice());
-            docRev.setReceiver(updatedDocRev.getReceiver());
-            docRev.setRolHasUserIdRolUser(updatedDocRev.getRolHasUserIdRolUser());
-            return docRevDao.save(docRev);
-        }).orElseThrow(() -> new RuntimeException("Revisión de documento no encontrada con ID: " + id));
-    }
+        DocEntity doc = new DocEntity();
+        doc.setIdDoc(request.getDocId());
 
-    // Eliminar una revisión de documento por ID
-    public void deleteDocRevision(Long id) {
-        docRevDao.deleteById(id);
+        newRevision.setRolHasUserIdRolUser(rolHasUser);
+        newRevision.setDoc(doc);
+        newRevision.setReference(request.getReference());
+        newRevision.setOffice(request.getOffice());
+        newRevision.setReceiver(request.getReceiver());
+
+        DocRevEntity savedRevision = docRevDao.save(newRevision);
+
+        return new DocRevResponse(
+                savedRevision.getIdDocRev(),
+                savedRevision.getRolHasUserIdRolUser().getIdRoleUser(),
+                savedRevision.getDoc().getIdDoc(),
+                savedRevision.getReference(),
+                savedRevision.getOffice(),
+                savedRevision.getReceiver(),
+                savedRevision.getCreatedAt()
+        );
     }
 }

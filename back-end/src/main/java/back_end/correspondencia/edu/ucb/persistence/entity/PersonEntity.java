@@ -1,5 +1,6 @@
 package back_end.correspondencia.edu.ucb.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
@@ -40,17 +41,18 @@ public class PersonEntity {
     private UsersEntity usersEntity;
 
     @PrePersist
-    protected void onCreate(){
-        name_ = this.name_.trim();
-        fatherLastName = this.fatherLastName.trim();
-        motherLastName = this.motherLastName.trim();
-        description = this.description.trim();
-        email = this.email.trim();
-        cellPhone = this.cellPhone.trim();
+    protected void onCreate() {
+        name_ = name_ != null ? name_.trim() : null;
+        fatherLastName = fatherLastName != null ? fatherLastName.trim() : null;
+        motherLastName = motherLastName != null ? motherLastName.trim() : null;
+        description = description != null ? description.trim() : null;
+        email = email != null ? email.trim() : null;
+        cellPhone = cellPhone != null ? cellPhone.trim() : null;
         status = 1;
         imageUrl = imageUrl != null ? imageUrl.trim() : null;
         createdAt = LocalDateTime.now();
     }
+
 
     public Long getIdPerson() {
         return idPerson;

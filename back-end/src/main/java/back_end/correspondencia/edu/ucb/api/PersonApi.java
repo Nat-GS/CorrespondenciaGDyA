@@ -1,8 +1,10 @@
 package back_end.correspondencia.edu.ucb.api;
 
 import back_end.correspondencia.edu.ucb.bl.PersonBl;
+import back_end.correspondencia.edu.ucb.dto.response.PersonResponse;
 import back_end.correspondencia.edu.ucb.persistence.entity.PersonEntity;
 import back_end.correspondencia.edu.ucb.util.Globals;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(Globals.apiVersion+"person")
@@ -19,10 +22,13 @@ public class PersonApi {
     private PersonBl personBl;
 
     @GetMapping("/all")
-    public ResponseEntity<List<PersonEntity>> getAllPersons() {
+    public ResponseEntity<List<PersonResponse>> getAllPersons() {
         try {
             logger.info("Iniciando petición GET /all para obtener todas las personas.");
-            List<PersonEntity> persons = personBl.getAllPersons();
+            List<PersonResponse> persons = personBl.getAllPersons()
+                    .stream()
+                    .map(person -> new PersonResponse().personEntityToResponse(person))
+                    .collect(Collectors.toList());
             logger.info("Operación exitosa: Se obtuvieron {} personas.", persons.size());
             return ResponseEntity.ok(persons);
         } catch (Exception e) {
@@ -33,14 +39,17 @@ public class PersonApi {
 
     // Crear una nueva persona
     @PostMapping
-    public ResponseEntity<PersonEntity> createPerson(@RequestBody PersonEntity person) {
+    public ResponseEntity<PersonEntity> saveOrUpdatePerson(@Valid @RequestBody PersonEntity person) {
         try {
-            logger.info("Iniciando petición POST / para crear una nueva persona: {}", person);
-            PersonEntity createdPerson = personBl.createPerson(person);
-            logger.info("Operación exitosa: Persona creada con ID: {}", createdPerson.getIdPerson());
-            return ResponseEntity.ok(createdPerson);
+            logger.info("Iniciando petición POST / para crear o actualizar una persona: {}", person);
+            PersonEntity savedPerson = personBl.saveOrUpdatePerson(person);
+            logger.info("Operación exitosa: Persona creada o actualizada con ID: {}", savedPerson.getIdPerson());
+            return ResponseEntity.ok(savedPerson);
+        } catch (IllegalArgumentException e) {
+            logger.warn("Advertencia: {}", e.getMessage());
+            return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
-            logger.error("Error al crear la persona: {}", e.getMessage(), e);
+            logger.error("Error al crear o actualizar la persona: {}", e.getMessage(), e);
             return ResponseEntity.internalServerError().build();
         }
     }

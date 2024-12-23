@@ -12,19 +12,33 @@ public class DocEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_doc", nullable = false)
     private Long idDoc;
+
     @ManyToOne
     @JoinColumn(name = "rol_has_user_id_rol_user", nullable = false)
     private RolHasUserEntity rolHasUserIdRolUser;
-    @Column(name = "tittle", length = 100, nullable = false)
+
+    @Column(name = "title", length = 100, nullable = false)
     private String title;
+
     @Column(name = "description", length = 255, nullable = false)
     private String description;
+
     @Column(name = "send_date", nullable = false)
     private LocalDateTime sendDate;
+
+    @Column(name = "status", nullable = false)
+    private int status;
+
+    @Column(name = "file_data", nullable = false)
+    @Lob
+    private byte[] fileData;
+
+
 
     @PrePersist
     protected void onCreate() {
         sendDate = LocalDateTime.now();
+        status = 2; // Status por defecto
     }
 
     public Long getIdDoc() {
@@ -65,5 +79,21 @@ public class DocEntity {
 
     public void setSendDate(LocalDateTime sendDate) {
         this.sendDate = sendDate;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public byte[] getFileData() {
+        return fileData;
+    }
+
+    public void setFileData(byte[] fileData) {
+        this.fileData = fileData;
     }
 }

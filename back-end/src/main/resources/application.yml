@@ -10,3 +10,8 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 8083 # Cambia el puerto si 8080 está en uso (por ejemplo, 8081)
+  error:
+    include-message: always
+    include-binding-errors: always
